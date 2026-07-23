@@ -1,0 +1,11 @@
+Reference year: 2026
+Total records (county): 463273
+Total records (Kajiado North): 134880
+
+Sex distribution (county):
+MALE: 243125
+FEMALE: 220148
+
+Sex distribution (Kajiado North):
+MALE: 69864
+FEMALE: 65016
