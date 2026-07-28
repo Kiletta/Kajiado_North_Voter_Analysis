@@ -2878,6 +2878,7 @@ input::placeholder {
   line-height: 14px;
   padding: 0 25px 0 10px;
   text-align: left;
+  appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;
 }
@@ -7237,6 +7238,7 @@ all of MD as it is not optimized for dense, information rich UIs.
 /* Force rendering true colors when outputing to pdf */
 * {
   -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 /* Misc */
@@ -7822,7 +7824,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [29]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Cell 2: Imports and display settings</span>
@@ -7835,8 +7837,12 @@ a.anchor-link {
 <span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_columns</span> <span class="o">=</span> <span class="mi">200</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">120</span>
 
+<span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s1">'analysis_outputs'</span>
 <span class="n">PLOT_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">'Visualizations'</span><span class="p">,</span> <span class="s1">'Plots'</span><span class="p">)</span>
+<span class="n">REFERENCE_YEAR</span> <span class="o">=</span> <span class="mi">2026</span>
 <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">PLOT_DIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -7858,7 +7864,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [30]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Cell 3: Load raw CSV</span>
@@ -7886,7 +7892,7 @@ Columns: ['county', 'constituency', 'caw', 'polling_center', 'polling_station', 
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[30]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -8014,12 +8020,12 @@ Columns: ['county', 'constituency', 'caw', 'polling_center', 'polling_station', 
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=1382c2d7">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1382c2d7">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [31]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Cell 4: Cleaning helpers</span>
@@ -8034,7 +8040,7 @@ Columns: ['county', 'constituency', 'caw', 'polling_center', 'polling_station', 
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'fname'</span><span class="p">,</span><span class="s1">'mname'</span><span class="p">,</span><span class="s1">'sname'</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">col</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
             <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="s1">''</span>
-    <span class="n">df</span><span class="p">[</span><span class="s1">'full_name'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'fname'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">'mname'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">'sname'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">))</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'\s+'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">'full_name'</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'fname'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">'mname'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">'sname'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">))</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\s+'</span><span class="p">,</span> <span class="s1">' '</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">df</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">parse_birth_dates</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">reference_year</span><span class="o">=</span><span class="mi">2026</span><span class="p">):</span>
@@ -8056,22 +8062,6 @@ Columns: ['county', 'constituency', 'caw', 'polling_center', 'polling_station', 
 </div>
 </div>
 </div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>&lt;&gt;:13: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
-&lt;&gt;:13: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
-C:\Users\chris\AppData\Local\Temp\ipykernel_7480\1975547982.py:13: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
-  df['full_name'] = (df['fname'].fillna('') + ' ' + df['mname'].fillna('') + ' ' + df['sname'].fillna('')).str.replace('\s+', ' ', regex=True).str.strip()
-</pre>
-</div>
-</div>
-</div>
-</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0049ede1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -8088,7 +8078,7 @@ C:\Users\chris\AppData\Local\Temp\ipykernel_7480\1975547982.py:13: SyntaxWarning
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># **Apply cleaning and derive columns**</span>
@@ -8121,7 +8111,7 @@ C:\Users\chris\AppData\Local\Temp\ipykernel_7480\1975547982.py:13: SyntaxWarning
 </div>
 </div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[6]:</div>
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[32]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
 <div>
 <style scoped="">
@@ -8214,6 +8204,244 @@ C:\Users\chris\AppData\Local\Temp\ipykernel_7480\1975547982.py:13: SyntaxWarning
 </div>
 </div>
 </div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a6569acf">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [33]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Reusable audit function for future voter register updates</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">audit_voter_register</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">constituency</span><span class="o">=</span><span class="s1">'KAJIADO NORTH'</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="n">reference_year</span><span class="o">=</span><span class="n">REFERENCE_YEAR</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">clean_text_fields</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">derive_full_name</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">parse_birth_dates</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">reference_year</span><span class="o">=</span><span class="n">reference_year</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">'id_passport_no'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">'id'</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'id'</span><span class="p">:</span> <span class="s1">'id_passport_no'</span><span class="p">})</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'constituency'</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="n">constituency</span>
+    <span class="n">df_kn</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s1">'id_passport_no'</span> <span class="ow">in</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">''</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">'NONE'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">'NULL'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span>
+        <span class="n">dup_mask</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">duplicate_ids</span> <span class="o">=</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dup_mask</span><span class="p">,</span> <span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">duplicate_ids</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">'age'</span> <span class="ow">in</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="s1">'MISSING'</span><span class="p">,</span>
+                                     <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">,</span> <span class="s1">'UNDERAGE'</span><span class="p">,</span>
+                                              <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">120</span><span class="p">,</span> <span class="s1">'UNLIKELY'</span><span class="p">,</span> <span class="s1">'VALID'</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'UNKNOWN'</span>
+
+    <span class="n">valid_age_mask</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'VALID'</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">200</span><span class="p">]</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'&lt;18'</span><span class="p">,</span><span class="s1">'18-24'</span><span class="p">,</span><span class="s1">'25-34'</span><span class="p">,</span><span class="s1">'35-44'</span><span class="p">,</span><span class="s1">'45-54'</span><span class="p">,</span><span class="s1">'55-64'</span><span class="p">,</span><span class="s1">'65+'</span><span class="p">]</span>
+    <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'INVALID'</span>
+    <span class="k">if</span> <span class="n">valid_age_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">valid_age_mask</span><span class="p">,</span> <span class="s1">'age_band'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">valid_age_mask</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">include_lowest</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="n">labels</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'INVALID'</span><span class="p">])</span>
+
+    <span class="n">polling_summary</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_kn</span>
+        <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'caw'</span><span class="p">,</span><span class="s1">'polling_station'</span><span class="p">],</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+            <span class="n">total_records</span><span class="o">=</span><span class="p">(</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="s1">'size'</span><span class="p">),</span>
+            <span class="n">unique_ids</span><span class="o">=</span><span class="p">(</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+            <span class="n">missing_id</span><span class="o">=</span><span class="p">(</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+            <span class="n">valid_age</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'VALID'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+            <span class="n">underage</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'UNDERAGE'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+            <span class="n">unlikely_age</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'UNLIKELY'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+            <span class="n">missing_age</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'MISSING'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'total_records'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="n">sex_age_ct</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="s1">'sex'</span> <span class="ow">in</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">sex_age_ct</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">],</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'sex'</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">pivot</span> <span class="o">=</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'caw'</span><span class="p">,</span><span class="s1">'polling_station'</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">,</span><span class="s1">'sex'</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">'df_kn'</span><span class="p">:</span> <span class="n">df_kn</span><span class="p">,</span>
+        <span class="s1">'duplicate_ids'</span><span class="p">:</span> <span class="n">duplicate_ids</span><span class="p">,</span>
+        <span class="s1">'polling_summary'</span><span class="p">:</span> <span class="n">polling_summary</span><span class="p">,</span>
+        <span class="s1">'sex_age_ct'</span><span class="p">:</span> <span class="n">sex_age_ct</span><span class="p">,</span>
+        <span class="s1">'pivot'</span><span class="p">:</span> <span class="n">pivot</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=66450473">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [34]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Run the new audit helper on the current dataset</span>
+<span class="n">current_audit</span> <span class="o">=</span> <span class="n">audit_voter_register</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Duplicate IDs in Kajiado North:'</span><span class="p">,</span> <span class="n">current_audit</span><span class="p">[</span><span class="s1">'duplicate_ids'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="k">if</span> <span class="ow">not</span> <span class="n">current_audit</span><span class="p">[</span><span class="s1">'duplicate_ids'</span><span class="p">]</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'Top duplicate IDs:'</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">current_audit</span><span class="p">[</span><span class="s1">'duplicate_ids'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Polling station summary size:'</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_audit</span><span class="p">[</span><span class="s1">'polling_summary'</span><span class="p">]))</span>
+<span class="k">if</span> <span class="n">current_audit</span><span class="p">[</span><span class="s1">'sex_age_ct'</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Sex-by-age-band cross-tab sample:'</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">current_audit</span><span class="p">[</span><span class="s1">'sex_age_ct'</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s1">'kajiado_north_audit_summary.txt'</span><span class="p">),</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Duplicate ID count: </span><span class="si">{</span><span class="n">current_audit</span><span class="p">[</span><span class="s1">'duplicate_ids'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'Polling station summary rows: '</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">current_audit</span><span class="p">[</span><span class="s1">'polling_summary'</span><span class="p">]))</span> <span class="o">+</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">current_audit</span><span class="p">[</span><span class="s1">'sex_age_ct'</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">'Sex-by-age-band cross-tab saved.</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">'Audit summary saved to'</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s1">'kajiado_north_audit_summary.txt'</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Duplicate IDs in Kajiado North: 58
+Top duplicate IDs:
+id_passport_no
+23455708    2
+12651035    2
+24413295    2
+30174665    2
+33288076    2
+28649263    2
+34143632    2
+28162036    2
+24182307    2
+21787609    2
+
+Polling station summary size: 34
+
+Sex-by-age-band cross-tab sample:
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>sex</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>All</th>
+</tr>
+<tr>
+<th>age_band</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>&lt;18</th>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>18-24</th>
+<td>690</td>
+<td>759</td>
+<td>1449</td>
+</tr>
+<tr>
+<th>25-34</th>
+<td>15380</td>
+<td>16748</td>
+<td>32128</td>
+</tr>
+<tr>
+<th>35-44</th>
+<td>23457</td>
+<td>23411</td>
+<td>46868</td>
+</tr>
+<tr>
+<th>45-54</th>
+<td>13850</td>
+<td>15329</td>
+<td>29179</td>
+</tr>
+<tr>
+<th>55-64</th>
+<td>6695</td>
+<td>8165</td>
+<td>14860</td>
+</tr>
+<tr>
+<th>65+</th>
+<td>4931</td>
+<td>5444</td>
+<td>10375</td>
+</tr>
+<tr>
+<th>INVALID</th>
+<td>13</td>
+<td>8</td>
+<td>21</td>
+</tr>
+<tr>
+<th>All</th>
+<td>65016</td>
+<td>69864</td>
+<td>134880</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Audit summary saved to analysis_outputs\kajiado_north_audit_summary.txt
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c88b382f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -8230,7 +8458,7 @@ C:\Users\chris\AppData\Local\Temp\ipykernel_7480\1975547982.py:13: SyntaxWarning
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [7]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [35]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Filter to Kajiado North and quick QA</span>
@@ -8244,21 +8472,91 @@ C:\Users\chris\AppData\Local\Temp\ipykernel_7480\1975547982.py:13: SyntaxWarning
 <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Missing counts (Kajiado North subset):'</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">count_missing</span><span class="p">(</span><span class="n">df_kn</span><span class="p">)[[</span><span class="s1">'date_of_birth'</span><span class="p">,</span><span class="s1">'sex'</span><span class="p">,</span><span class="s1">'id_passport_no'</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
 
-<span class="c1"># Duplicates by id</span>
+<span class="c1"># Duplicate national ID / passport records</span>
 <span class="k">if</span> <span class="s1">'id_passport_no'</span> <span class="ow">in</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
-    <span class="n">dup_ids</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Duplicate id_passport_no count:'</span><span class="p">,</span> <span class="n">dup_ids</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">''</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">'NONE'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">'NULL'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">})</span>
+    <span class="n">dup_mask</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span> <span class="o">&amp;</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">dup_ids</span> <span class="o">=</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dup_mask</span><span class="p">,</span> <span class="s1">'id_passport_no'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+    <span class="n">duplicate_count</span> <span class="o">=</span> <span class="n">dup_ids</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Duplicate id_passport_no count:'</span><span class="p">,</span> <span class="n">duplicate_count</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">duplicate_count</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'Duplicate id groups (top 20):'</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">dup_ids</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+        <span class="n">display</span><span class="p">(</span>
+            <span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dup_mask</span><span class="p">,</span> <span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">,</span><span class="s1">'county'</span><span class="p">,</span><span class="s1">'constituency'</span><span class="p">,</span><span class="s1">'caw'</span><span class="p">,</span><span class="s1">'polling_center'</span><span class="p">,</span><span class="s1">'polling_station'</span><span class="p">,</span><span class="s1">'sex'</span><span class="p">,</span><span class="s1">'age'</span><span class="p">]]</span>
+            <span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">'id_passport_no'</span><span class="p">,</span><span class="s1">'caw'</span><span class="p">,</span><span class="s1">'polling_station'</span><span class="p">])</span>
+            <span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">duplicate_count</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="c1"># Age distribution quick stats</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Age stats (Kajiado North):'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<span class="c1"># Age distribution quick stats and implausible age audit</span>
+<span class="k">if</span> <span class="s1">'age'</span> <span class="ow">in</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">(),</span> <span class="s1">'MISSING'</span><span class="p">,</span>
+                                 <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">,</span> <span class="s1">'UNDERAGE'</span><span class="p">,</span>
+                                          <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">120</span><span class="p">,</span> <span class="s1">'UNLIKELY'</span><span class="p">,</span> <span class="s1">'VALID'</span><span class="p">)))</span>
+    <span class="n">invalid_age_mask</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'VALID'</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Age stats (Kajiado North, valid ages only):'</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">invalid_age_mask</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Age flag counts:'</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">invalid_age_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Sample implausible age records:'</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">invalid_age_mask</span><span class="p">,</span> <span class="p">[</span><span class="s1">'id_passport_no'</span><span class="p">,</span><span class="s1">'date_of_birth'</span><span class="p">,</span><span class="s1">'birth_date'</span><span class="p">,</span><span class="s1">'age'</span><span class="p">,</span><span class="s1">'age_flag'</span><span class="p">,</span><span class="s1">'caw'</span><span class="p">,</span><span class="s1">'polling_station'</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'UNKNOWN'</span>
 
-<span class="c1"># Age bands</span>
+<span class="c1"># Age bands (valid ages only)</span>
+<span class="n">valid_age_mask</span> <span class="o">=</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_flag'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'VALID'</span>
 <span class="n">bins</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">24</span><span class="p">,</span><span class="mi">34</span><span class="p">,</span><span class="mi">44</span><span class="p">,</span><span class="mi">54</span><span class="p">,</span><span class="mi">64</span><span class="p">,</span><span class="mi">200</span><span class="p">]</span>
 <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'&lt;18'</span><span class="p">,</span><span class="s1">'18-24'</span><span class="p">,</span><span class="s1">'25-34'</span><span class="p">,</span><span class="s1">'35-44'</span><span class="p">,</span><span class="s1">'45-54'</span><span class="p">,</span><span class="s1">'55-64'</span><span class="p">,</span><span class="s1">'65+'</span><span class="p">]</span>
-<span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age'</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">include_lowest</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'INVALID'</span>
+<span class="k">if</span> <span class="n">valid_age_mask</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+    <span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">valid_age_mask</span><span class="p">,</span> <span class="s1">'age_band'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">cut</span><span class="p">(</span><span class="n">df_kn</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">valid_age_mask</span><span class="p">,</span> <span class="s1">'age'</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">include_lowest</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">],</span> <span class="n">categories</span><span class="o">=</span><span class="n">labels</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'INVALID'</span><span class="p">])</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Age band counts:'</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">labels</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'INVALID'</span><span class="p">])</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+<span class="c1"># Polling-station-level summary</span>
+<span class="n">polling_summary</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_kn</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">'caw'</span><span class="p">,</span><span class="s1">'polling_station'</span><span class="p">],</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+        <span class="n">total_records</span><span class="o">=</span><span class="p">(</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="s1">'size'</span><span class="p">),</span>
+        <span class="n">unique_ids</span><span class="o">=</span><span class="p">(</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">nunique</span><span class="p">()),</span>
+        <span class="n">missing_id</span><span class="o">=</span><span class="p">(</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="n">valid_age</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'VALID'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="n">underage</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'UNDERAGE'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="n">unlikely_age</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'UNLIKELY'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()),</span>
+        <span class="n">missing_age</span><span class="o">=</span><span class="p">(</span><span class="s1">'age_flag'</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="s1">'MISSING'</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">'total_records'</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Top polling stations by record count:'</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">polling_summary</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+<span class="n">polling_summary</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s1">'kajiado_north_polling_station_summary.csv'</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Sex-by-age-band cross-tabs</span>
+<span class="k">if</span> <span class="s1">'sex'</span> <span class="ow">in</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">sex_age_ct</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">df_kn</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">],</span> <span class="n">df_kn</span><span class="p">[</span><span class="s1">'sex'</span><span class="p">],</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Sex-by-age-band cross-tab (Kajiado North):'</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">sex_age_ct</span><span class="p">)</span>
+    <span class="n">sex_age_ct</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s1">'kajiado_north_sex_age_band_crosstab.csv'</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Sex column missing; cannot build sex-by-age-band cross-tab.'</span><span class="p">)</span>
+
+<span class="c1"># Polling station x age band x sex pivot</span>
+<span class="k">if</span> <span class="s1">'sex'</span> <span class="ow">in</span> <span class="n">df_kn</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_kn</span>
+        <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s1">'caw'</span><span class="p">,</span><span class="s1">'polling_station'</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'age_band'</span><span class="p">,</span><span class="s1">'sex'</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="s1">'id_passport_no'</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s1">'count'</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Polling station x age band x sex sample:'</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">pivot</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+    <span class="n">pivot</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s1">'kajiado_north_polling_age_sex_pivot.csv'</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">Sex column missing; cannot build polling station age-sex pivot.'</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8279,29 +8577,1371 @@ sex               0
 id_passport_no    0
 
 Duplicate id_passport_no count: 58
+Duplicate id groups (top 20):
+id_passport_no
+23455708    2
+12651035    2
+24413295    2
+30174665    2
+33288076    2
+28649263    2
+34143632    2
+28162036    2
+24182307    2
+21787609    2
+9271806     2
+20987851    2
+29657172    2
+20220639    2
+29208680    2
+32655935    2
+22038456    2
+38279757    2
+29719502    2
+10845079    2
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-Age stats (Kajiado North):
-count    134880.000000
-mean         44.000489
-std          12.838737
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>id_passport_no</th>
+<th>county</th>
+<th>constituency</th>
+<th>caw</th>
+<th>polling_center</th>
+<th>polling_station</th>
+<th>sex</th>
+<th>age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>182079</th>
+<td>10845079</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>NKAIMURUNYA</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>MALE</td>
+<td>56.0</td>
+</tr>
+<tr>
+<th>343384</th>
+<td>10845079</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>NKAIMURUNYA</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>MALE</td>
+<td>56.0</td>
+</tr>
+<tr>
+<th>154381</th>
+<td>12651035</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>NGONG</td>
+<td>AIC PRI .SCH</td>
+<td>AIC PRI .SCH</td>
+<td>MALE</td>
+<td>53.0</td>
+</tr>
+<tr>
+<th>13576</th>
+<td>12651035</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>NKAIMURUNYA</td>
+<td>NAKEEL PRI.SCH</td>
+<td>NAKEEL PRI.SCH</td>
+<td>MALE</td>
+<td>53.0</td>
+</tr>
+<tr>
+<th>288783</th>
+<td>13843789</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>MALE</td>
+<td>50.0</td>
+</tr>
+<tr>
+<th>321269</th>
+<td>13843789</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>MALE</td>
+<td>39.0</td>
+</tr>
+<tr>
+<th>92383</th>
+<td>20220639</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>LEMELEPO WATER PROJECT</td>
+<td>LEMELEPO WATER PROJECT</td>
+<td>FEMALE</td>
+<td>51.0</td>
+</tr>
+<tr>
+<th>265248</th>
+<td>20220639</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>LEMELEPO WATER PROJECT</td>
+<td>LEMELEPO WATER PROJECT</td>
+<td>FEMALE</td>
+<td>51.0</td>
+</tr>
+<tr>
+<th>67012</th>
+<td>20987851</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>NKAIMURUNYA</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>FEMALE</td>
+<td>48.0</td>
+</tr>
+<tr>
+<th>109985</th>
+<td>20987851</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>NKAIMURUNYA</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>FEMALE</td>
+<td>35.0</td>
+</tr>
+<tr>
+<th>54343</th>
+<td>21787609</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>MALE</td>
+<td>49.0</td>
+</tr>
+<tr>
+<th>311421</th>
+<td>21787609</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>MALE</td>
+<td>47.0</td>
+</tr>
+<tr>
+<th>340689</th>
+<td>22038456</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>NKAIMURUNYA</td>
+<td>NAKEEL PRI.SCH</td>
+<td>NAKEEL PRI.SCH</td>
+<td>MALE</td>
+<td>46.0</td>
+</tr>
+<tr>
+<th>154864</th>
+<td>22038456</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>ONGATA RONGAI</td>
+<td>ENDOMOTO CHIEF'S CAMP</td>
+<td>ENDOMOTO CHIEF'S CAMP</td>
+<td>MALE</td>
+<td>46.0</td>
+</tr>
+<tr>
+<th>2835</th>
+<td>23455708</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>MALE</td>
+<td>43.0</td>
+</tr>
+<tr>
+<th>370032</th>
+<td>23455708</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>LEMELEPO WATER PROJECT</td>
+<td>LEMELEPO WATER PROJECT</td>
+<td>MALE</td>
+<td>43.0</td>
+</tr>
+<tr>
+<th>53720</th>
+<td>24182307</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>DELIVERANCE CHURCH - KANDISI</td>
+<td>DELIVERANCE CHURCH - KANDISI</td>
+<td>MALE</td>
+<td>43.0</td>
+</tr>
+<tr>
+<th>249898</th>
+<td>24182307</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>OLKERI</td>
+<td>DELIVERANCE CHURCH - KANDISI</td>
+<td>DELIVERANCE CHURCH - KANDISI</td>
+<td>MALE</td>
+<td>43.0</td>
+</tr>
+<tr>
+<th>24928</th>
+<td>24413295</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>ONGATA RONGAI</td>
+<td>SCHEME SIX CHIEF CAMP</td>
+<td>SCHEME SIX CHIEF CAMP</td>
+<td>MALE</td>
+<td>41.0</td>
+</tr>
+<tr>
+<th>448175</th>
+<td>24413295</td>
+<td>KAJIADO</td>
+<td>KAJIADO NORTH</td>
+<td>ONGATA RONGAI</td>
+<td>SCHEME SIX CHIEF CAMP</td>
+<td>SCHEME SIX CHIEF CAMP</td>
+<td>MALE</td>
+<td>41.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+Age stats (Kajiado North, valid ages only):
+count    134859.000000
+mean         43.985755
+std          12.783507
 min          22.000000
 25%          35.000000
 50%          41.000000
 75%          51.000000
-max         176.000000
+max         118.000000
 Name: age, dtype: float64
 
+Age flag counts:
+age_flag
+VALID       134859
+UNLIKELY        21
+
+Sample implausible age records:
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>id_passport_no</th>
+<th>date_of_birth</th>
+<th>birth_date</th>
+<th>age</th>
+<th>age_flag</th>
+<th>caw</th>
+<th>polling_station</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>53116</th>
+<td>26815914</td>
+<td>02/12/1883</td>
+<td>1883-12-02</td>
+<td>143.0</td>
+<td>UNLIKELY</td>
+<td>OLKERI</td>
+<td>OLKERI PRI.SCH</td>
+</tr>
+<tr>
+<th>67580</th>
+<td>13029226</td>
+<td>28/05/1874</td>
+<td>1874-05-28</td>
+<td>152.0</td>
+<td>UNLIKELY</td>
+<td>NKAIMURUNYA</td>
+<td>NKAI-MURUNYA PRI.SCH</td>
+</tr>
+<tr>
+<th>81123</th>
+<td>1063662</td>
+<td>24/07/1900</td>
+<td>1900-07-24</td>
+<td>126.0</td>
+<td>UNLIKELY</td>
+<td>NGONG</td>
+<td>JUA KALI SHEDS</td>
+</tr>
+<tr>
+<th>94446</th>
+<td>4720268</td>
+<td>01/01/1900</td>
+<td>1900-01-01</td>
+<td>126.0</td>
+<td>UNLIKELY</td>
+<td>ONGATA RONGAI</td>
+<td>ONG ATA RONGAI OPEN AIR MARKET</td>
+</tr>
+<tr>
+<th>98193</th>
+<td>4875642</td>
+<td>01/01/1900</td>
+<td>1900-01-01</td>
+<td>126.0</td>
+<td>UNLIKELY</td>
+<td>ONGATA RONGAI</td>
+<td>ONG ATA RONGAI OPEN AIR MARKET</td>
+</tr>
+<tr>
+<th>107453</th>
+<td>24419081</td>
+<td>22/08/1895</td>
+<td>1895-08-22</td>
+<td>131.0</td>
+<td>UNLIKELY</td>
+<td>ONGATA RONGAI</td>
+<td>ONG ATA RONGAI OPEN AIR MARKET</td>
+</tr>
+<tr>
+<th>108056</th>
+<td>6447774</td>
+<td>01/01/1857</td>
+<td>1857-01-01</td>
+<td>169.0</td>
+<td>UNLIKELY</td>
+<td>NKAIMURUNYA</td>
+<td>ONGATA ACADEMY-NEW</td>
+</tr>
+<tr>
+<th>134349</th>
+<td>22788627</td>
+<td>01/01/1905</td>
+<td>1905-01-01</td>
+<td>121.0</td>
+<td>UNLIKELY</td>
+<td>NGONG</td>
+<td>PCEA ENCHORRO EMUNY PRI .SCH</td>
+</tr>
+<tr>
+<th>156876</th>
+<td>11210867</td>
+<td>01/01/1900</td>
+<td>1900-01-01</td>
+<td>126.0</td>
+<td>UNLIKELY</td>
+<td>NGONG</td>
+<td>JUA KALI SHEDS</td>
+</tr>
+<tr>
+<th>179335</th>
+<td>20380111</td>
+<td>01/01/1900</td>
+<td>1900-01-01</td>
+<td>126.0</td>
+<td>UNLIKELY</td>
+<td>NKAIMURUNYA</td>
+<td>NKAI-MURUNYA MIXED DAY SEC-NEW</td>
+</tr>
+<tr>
+<th>188799</th>
+<td>27003333</td>
+<td>01/01/1886</td>
+<td>1886-01-01</td>
+<td>140.0</td>
+<td>UNLIKELY</td>
+<td>OLOOLUA</td>
+<td>OLEPOLOS NUR SCH</td>
+</tr>
+<tr>
+<th>259051</th>
+<td>24208258</td>
+<td>24/01/1881</td>
+<td>1881-01-24</td>
+<td>145.0</td>
+<td>UNLIKELY</td>
+<td>OLOOLUA</td>
+<td>BULBUL PRI.SCH</td>
+</tr>
+<tr>
+<th>259487</th>
+<td>1062649</td>
+<td>01/01/1905</td>
+<td>1905-01-01</td>
+<td>121.0</td>
+<td>UNLIKELY</td>
+<td>NGONG</td>
+<td>AIC PRI .SCH</td>
+</tr>
+<tr>
+<th>331119</th>
+<td>28807717</td>
+<td>28/01/1888</td>
+<td>1888-01-28</td>
+<td>138.0</td>
+<td>UNLIKELY</td>
+<td>ONGATA RONGAI</td>
+<td>ONG ATA RONGAI OPEN AIR MARKET</td>
+</tr>
+<tr>
+<th>335735</th>
+<td>10751900</td>
+<td>01/01/1900</td>
+<td>1900-01-01</td>
+<td>126.0</td>
+<td>UNLIKELY</td>
+<td>NKAIMURUNYA</td>
+<td>ONG ATA RONGAI PRI.SCH</td>
+</tr>
+<tr>
+<th>353354</th>
+<td>11106216</td>
+<td>01/01/1871</td>
+<td>1871-01-01</td>
+<td>155.0</td>
+<td>UNLIKELY</td>
+<td>ONGATA RONGAI</td>
+<td>ONG ATA RONGAI OPEN AIR MARKET</td>
+</tr>
+<tr>
+<th>356637</th>
+<td>A1914270</td>
+<td>26/07/1887</td>
+<td>1887-07-26</td>
+<td>139.0</td>
+<td>UNLIKELY</td>
+<td>NGONG</td>
+<td>PCEA ENCHORRO EMUNY PRI .SCH</td>
+</tr>
+<tr>
+<th>381802</th>
+<td>4304090</td>
+<td>01/01/1850</td>
+<td>1850-01-01</td>
+<td>176.0</td>
+<td>UNLIKELY</td>
+<td>NGONG</td>
+<td>PCEA ENCHORRO EMUNY PRI .SCH</td>
+</tr>
+<tr>
+<th>383959</th>
+<td>1067939</td>
+<td>01/01/1903</td>
+<td>1903-01-01</td>
+<td>123.0</td>
+<td>UNLIKELY</td>
+<td>NKAIMURUNYA</td>
+<td>ONG ATA RONGAI PRI.SCH</td>
+</tr>
+<tr>
+<th>395700</th>
+<td>12759029</td>
+<td>01/01/1900</td>
+<td>1900-01-01</td>
+<td>126.0</td>
+<td>UNLIKELY</td>
+<td>NGONG</td>
+<td>PCEA ENCHORRO EMUNY PRI .SCH</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
 Age band counts:
 age_band
-&lt;18          0
-18-24     1449
-25-34    32128
-35-44    46868
-45-54    29179
-55-64    14860
-65+      10396
-Name: count, dtype: int64
+&lt;18            0
+18-24       1449
+25-34      32128
+35-44      46868
+45-54      29179
+55-64      14860
+65+        10375
+INVALID       21
+
+Top polling stations by record count:
 </pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>caw</th>
+<th>polling_station</th>
+<th>total_records</th>
+<th>unique_ids</th>
+<th>missing_id</th>
+<th>valid_age</th>
+<th>underage</th>
+<th>unlikely_age</th>
+<th>missing_age</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>ONGATA RONGAI</td>
+<td>ONG ATA RONGAI OPEN AIR MARKET</td>
+<td>18065</td>
+<td>18065</td>
+<td>0</td>
+<td>18060</td>
+<td>0</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr>
+<th>1</th>
+<td>NKAIMURUNYA</td>
+<td>NAKEEL PRI.SCH</td>
+<td>9987</td>
+<td>9987</td>
+<td>0</td>
+<td>9987</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>2</th>
+<td>NGONG</td>
+<td>PCEA ENCHORRO EMUNY PRI .SCH</td>
+<td>9433</td>
+<td>9431</td>
+<td>0</td>
+<td>9429</td>
+<td>0</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr>
+<th>3</th>
+<td>NKAIMURUNYA</td>
+<td>ONGATA ACADEMY-NEW</td>
+<td>8965</td>
+<td>8962</td>
+<td>0</td>
+<td>8964</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>4</th>
+<td>OLOOLUA</td>
+<td>BULBUL PRI.SCH</td>
+<td>8421</td>
+<td>8419</td>
+<td>0</td>
+<td>8420</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>5</th>
+<td>OLKERI</td>
+<td>ARAP MOI PRI .SCH</td>
+<td>8145</td>
+<td>8142</td>
+<td>0</td>
+<td>8145</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>6</th>
+<td>OLKERI</td>
+<td>LEMELEPO WATER PROJECT</td>
+<td>5684</td>
+<td>5682</td>
+<td>0</td>
+<td>5684</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>7</th>
+<td>OLKERI</td>
+<td>LOWER MATASIA PRI.SCH</td>
+<td>5115</td>
+<td>5115</td>
+<td>0</td>
+<td>5115</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>8</th>
+<td>OLOOLUA</td>
+<td>OLOOLUA PRI.SCH</td>
+<td>4738</td>
+<td>4738</td>
+<td>0</td>
+<td>4738</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>9</th>
+<td>NKAIMURUNYA</td>
+<td>MOSOI RANGE CHIEF'S CAMP</td>
+<td>4354</td>
+<td>4353</td>
+<td>0</td>
+<td>4354</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>10</th>
+<td>OLOOLUA</td>
+<td>OLEPOLOS NUR SCH</td>
+<td>4353</td>
+<td>4353</td>
+<td>0</td>
+<td>4352</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>11</th>
+<td>NKAIMURUNYA</td>
+<td>NKAI-MURUNYA PRI.SCH</td>
+<td>3777</td>
+<td>3776</td>
+<td>0</td>
+<td>3776</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>12</th>
+<td>NGONG</td>
+<td>NGONG TOWNSHIP PRI.SCH</td>
+<td>3606</td>
+<td>3606</td>
+<td>0</td>
+<td>3606</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>13</th>
+<td>ONGATA RONGAI</td>
+<td>OLEKASASI PRI.SCH</td>
+<td>3483</td>
+<td>3483</td>
+<td>0</td>
+<td>3483</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>14</th>
+<td>NGONG</td>
+<td>AIC PRI .SCH</td>
+<td>3351</td>
+<td>3351</td>
+<td>0</td>
+<td>3350</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>15</th>
+<td>ONGATA RONGAI</td>
+<td>ENDOMOTO CHIEF'S CAMP</td>
+<td>3300</td>
+<td>3300</td>
+<td>0</td>
+<td>3300</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>16</th>
+<td>NKAIMURUNYA</td>
+<td>ONG ATA RONGAI PRI.SCH</td>
+<td>3110</td>
+<td>3110</td>
+<td>0</td>
+<td>3108</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<th>17</th>
+<td>NKAIMURUNYA</td>
+<td>NKAI-MURUNYA MIXED DAY SEC-NEW</td>
+<td>3014</td>
+<td>3014</td>
+<td>0</td>
+<td>3013</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>18</th>
+<td>NGONG</td>
+<td>JUA KALI SHEDS</td>
+<td>2870</td>
+<td>2869</td>
+<td>0</td>
+<td>2867</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr>
+<th>19</th>
+<td>NGONG</td>
+<td>ACK PRI SCH</td>
+<td>2396</td>
+<td>2395</td>
+<td>0</td>
+<td>2396</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+Sex-by-age-band cross-tab (Kajiado North):
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>sex</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>All</th>
+</tr>
+<tr>
+<th>age_band</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>&lt;18</th>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>18-24</th>
+<td>690</td>
+<td>759</td>
+<td>1449</td>
+</tr>
+<tr>
+<th>25-34</th>
+<td>15380</td>
+<td>16748</td>
+<td>32128</td>
+</tr>
+<tr>
+<th>35-44</th>
+<td>23457</td>
+<td>23411</td>
+<td>46868</td>
+</tr>
+<tr>
+<th>45-54</th>
+<td>13850</td>
+<td>15329</td>
+<td>29179</td>
+</tr>
+<tr>
+<th>55-64</th>
+<td>6695</td>
+<td>8165</td>
+<td>14860</td>
+</tr>
+<tr>
+<th>65+</th>
+<td>4931</td>
+<td>5444</td>
+<td>10375</td>
+</tr>
+<tr>
+<th>INVALID</th>
+<td>13</td>
+<td>8</td>
+<td>21</td>
+</tr>
+<tr>
+<th>All</th>
+<td>65016</td>
+<td>69864</td>
+<td>134880</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>
+Polling station x age band x sex sample:
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr>
+<th></th>
+<th>age_band</th>
+<th colspan="2" halign="left">18-24</th>
+<th colspan="2" halign="left">25-34</th>
+<th colspan="2" halign="left">35-44</th>
+<th colspan="2" halign="left">45-54</th>
+<th colspan="2" halign="left">55-64</th>
+<th colspan="2" halign="left">65+</th>
+<th colspan="2" halign="left">INVALID</th>
+</tr>
+<tr>
+<th></th>
+<th>sex</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>FEMALE</th>
+<th>MALE</th>
+<th>FEMALE</th>
+<th>MALE</th>
+</tr>
+<tr>
+<th>caw</th>
+<th>polling_station</th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th rowspan="6" valign="top">NGONG</th>
+<th>ACK PRI SCH</th>
+<td>7</td>
+<td>13</td>
+<td>289</td>
+<td>308</td>
+<td>381</td>
+<td>408</td>
+<td>249</td>
+<td>282</td>
+<td>148</td>
+<td>166</td>
+<td>67</td>
+<td>78</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>AIC PRI .SCH</th>
+<td>23</td>
+<td>22</td>
+<td>442</td>
+<td>455</td>
+<td>584</td>
+<td>439</td>
+<td>358</td>
+<td>323</td>
+<td>157</td>
+<td>190</td>
+<td>212</td>
+<td>145</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>JUA KALI SHEDS</th>
+<td>10</td>
+<td>13</td>
+<td>322</td>
+<td>433</td>
+<td>472</td>
+<td>541</td>
+<td>252</td>
+<td>327</td>
+<td>144</td>
+<td>179</td>
+<td>78</td>
+<td>96</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<th>NGONG TOWNSHIP PRI.SCH</th>
+<td>33</td>
+<td>30</td>
+<td>415</td>
+<td>506</td>
+<td>543</td>
+<td>618</td>
+<td>306</td>
+<td>446</td>
+<td>150</td>
+<td>268</td>
+<td>113</td>
+<td>178</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>PCEA ENCHORRO EMUNY PRI .SCH</th>
+<td>53</td>
+<td>58</td>
+<td>1116</td>
+<td>1134</td>
+<td>1790</td>
+<td>1646</td>
+<td>1088</td>
+<td>1039</td>
+<td>493</td>
+<td>434</td>
+<td>286</td>
+<td>292</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<th>PCEA NGONG HILLS SEC -NEW</th>
+<td>12</td>
+<td>18</td>
+<td>145</td>
+<td>195</td>
+<td>145</td>
+<td>176</td>
+<td>87</td>
+<td>119</td>
+<td>50</td>
+<td>72</td>
+<td>18</td>
+<td>45</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th rowspan="6" valign="top">NKAIMURUNYA</th>
+<th>MOSOI RANGE CHIEF'S CAMP</th>
+<td>10</td>
+<td>16</td>
+<td>454</td>
+<td>380</td>
+<td>938</td>
+<td>817</td>
+<td>542</td>
+<td>539</td>
+<td>214</td>
+<td>206</td>
+<td>127</td>
+<td>111</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>NAKEEL PRI.SCH</th>
+<td>30</td>
+<td>33</td>
+<td>1214</td>
+<td>1281</td>
+<td>1971</td>
+<td>1919</td>
+<td>968</td>
+<td>1129</td>
+<td>366</td>
+<td>513</td>
+<td>262</td>
+<td>301</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>NKAI-MURUNYA MIXED DAY SEC-NEW</th>
+<td>14</td>
+<td>20</td>
+<td>313</td>
+<td>378</td>
+<td>516</td>
+<td>594</td>
+<td>289</td>
+<td>373</td>
+<td>152</td>
+<td>189</td>
+<td>94</td>
+<td>81</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>NKAI-MURUNYA PRI.SCH</th>
+<td>34</td>
+<td>44</td>
+<td>411</td>
+<td>634</td>
+<td>556</td>
+<td>755</td>
+<td>287</td>
+<td>467</td>
+<td>119</td>
+<td>248</td>
+<td>97</td>
+<td>124</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<th>ONG ATA RONGAI PRI.SCH</th>
+<td>6</td>
+<td>8</td>
+<td>377</td>
+<td>359</td>
+<td>577</td>
+<td>562</td>
+<td>256</td>
+<td>412</td>
+<td>115</td>
+<td>194</td>
+<td>114</td>
+<td>128</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<th>ONGATA ACADEMY-NEW</th>
+<td>36</td>
+<td>29</td>
+<td>1009</td>
+<td>958</td>
+<td>1820</td>
+<td>1491</td>
+<td>1196</td>
+<td>968</td>
+<td>491</td>
+<td>497</td>
+<td>234</td>
+<td>235</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<th rowspan="8" valign="top">OLKERI</th>
+<th>ARAP MOI PRI .SCH</th>
+<td>27</td>
+<td>31</td>
+<td>847</td>
+<td>995</td>
+<td>1242</td>
+<td>1275</td>
+<td>899</td>
+<td>945</td>
+<td>516</td>
+<td>598</td>
+<td>373</td>
+<td>397</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>DELIVERANCE CHURCH - KANDISI</th>
+<td>11</td>
+<td>9</td>
+<td>166</td>
+<td>184</td>
+<td>234</td>
+<td>272</td>
+<td>188</td>
+<td>188</td>
+<td>115</td>
+<td>118</td>
+<td>106</td>
+<td>116</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>ESILANKE WATER PROJECT</th>
+<td>8</td>
+<td>7</td>
+<td>126</td>
+<td>165</td>
+<td>276</td>
+<td>234</td>
+<td>196</td>
+<td>182</td>
+<td>112</td>
+<td>118</td>
+<td>123</td>
+<td>143</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>KISERIAN PRI.SCH</th>
+<td>21</td>
+<td>21</td>
+<td>260</td>
+<td>272</td>
+<td>279</td>
+<td>292</td>
+<td>156</td>
+<td>176</td>
+<td>80</td>
+<td>130</td>
+<td>47</td>
+<td>58</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>LEMELEPO WATER PROJECT</th>
+<td>15</td>
+<td>21</td>
+<td>634</td>
+<td>564</td>
+<td>907</td>
+<td>890</td>
+<td>615</td>
+<td>720</td>
+<td>364</td>
+<td>465</td>
+<td>213</td>
+<td>276</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>LOWER MATASIA PRI.SCH</th>
+<td>18</td>
+<td>24</td>
+<td>561</td>
+<td>637</td>
+<td>876</td>
+<td>805</td>
+<td>573</td>
+<td>547</td>
+<td>289</td>
+<td>334</td>
+<td>223</td>
+<td>228</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>MERISHO AP CAMP-NEW</th>
+<td>5</td>
+<td>3</td>
+<td>134</td>
+<td>131</td>
+<td>157</td>
+<td>149</td>
+<td>117</td>
+<td>105</td>
+<td>75</td>
+<td>74</td>
+<td>105</td>
+<td>80</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<th>NALEPO NUR SCH</th>
+<td>1</td>
+<td>1</td>
+<td>34</td>
+<td>42</td>
+<td>43</td>
+<td>35</td>
+<td>26</td>
+<td>25</td>
+<td>24</td>
+<td>17</td>
+<td>21</td>
+<td>18</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -8322,7 +9962,7 @@ Name: count, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [36]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Summaries and simple plots</span>
@@ -8423,7 +10063,7 @@ Name: count, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [37]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Analysis continuation: Kajiado North vs rest of Kajiado County</span>
@@ -8465,7 +10105,7 @@ Name: count, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [38]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Helper functions for cleaning and age derivation</span>
@@ -8536,7 +10176,7 @@ Name: count, dtype: int64
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [11]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [39]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Chunked processing and comparative summaries</span>
@@ -8615,7 +10255,7 @@ Kajiado North as % of Kajiado County: 29.11%
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [40]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Display sex distribution comparison as DataFrame</span>
