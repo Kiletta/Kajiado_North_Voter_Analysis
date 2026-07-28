@@ -15,16 +15,18 @@ Exploratory data analysis of voter registration records for **Kajiado North cons
 2. **Load raw data** — reads the CSV as strings (to avoid type-inference issues) and inspects shape/columns.
 3. **Cleaning** — strips and upper-cases text fields, normalizes missing markers (`NULL`, `None`, blank), derives `full_name` from name parts, and parses `date_of_birth` into `birth_date`, `birth_year`, and `age` (age calculated relative to a 2026 reference year).
 4. **Filter to Kajiado North** — isolates the constituency and runs QA: missing-value counts, duplicate ID checks, age distribution stats, and age-band bucketing (`<18`, `18-24`, `25-34`, `35-44`, `45-54`, `55-64`, `65+`).
-5. **Summaries & plots** — sex distribution and top 10 Civic Administrative Wards (CAWs) by registered voters, with bar/histogram charts saved to `Visualizations/Plots/`.
-6. **County-wide comparison** — a chunked (memory-efficient) pass over the full county dataset to compare Kajiado North against the rest of Kajiado on sex ratio and age-band distribution, with results exported to `analysis_outputs/`.
+5. **Reusable register audit function** — `audit_voter_register()` packages the QA logic into a single, reusable function so it can be re-run against future voter register updates without rewriting the analysis. For a given constituency it re-applies cleaning, flags each record's age as `VALID`, `MISSING`, `UNDERAGE`, or `UNLIKELY` (age > 120), builds a polling-station-level summary (34 CAW × polling-station groups for Kajiado North), and produces a sex-by-age-band cross-tab. Results are written to `analysis_outputs/kajiado_north_audit_summary.txt`.
+6. **Summaries & plots** — sex distribution and top 10 Civic Administrative Wards (CAWs) by registered voters, with bar/histogram charts saved to `Visualizations/Plots/`.
+7. **County-wide comparison** — a chunked (memory-efficient) pass over the full county dataset to compare Kajiado North against the rest of Kajiado on sex ratio and age-band distribution, with results exported to `analysis_outputs/`.
 
 ## Key findings
 
 - **Kajiado North** accounts for **29.11%** of all registered voters in Kajiado County.
 - **Sex split (Kajiado North):** Male 69,864 (51.8%) / Female 65,016 (48.2%) — closely tracking the county-wide split of 52.5% / 47.5%.
-- **Age:** mean age ~44, median 41; bulk of voters fall in the 25–54 range. A small number of implausible ages (max 176) point to data-entry errors in `date_of_birth` worth flagging for cleanup.
-- **Data quality:** no missing values in `date_of_birth`, `sex`, or `id_passport_no` for the Kajiado North subset, but 58 duplicate `id_passport_no` entries were detected.
+- **Age:** mean age ~44, median 41; bulk of voters fall in the 25–54 range. Among records with a valid, plausible age, ages range from 22 to 118. A separate flagging pass identifies **21 records with an "unlikely" age** (>120 years, e.g. a birth year of 1883), which are cleanly excluded from age-based stats rather than skewing them.
+- **Data quality:** no missing values in `date_of_birth`, `sex`, or `id_passport_no` for the Kajiado North subset, but **58 duplicate `id_passport_no` entries** were detected (confirmed by both the constituency-level QA and the new reusable audit function).
 - **Top CAWs by voter count:** Nkaimurunya, Olkeri, Ongata Rongai, Ngong, Oloolua — together representing the largest voter concentrations within the constituency.
+- **Sex-by-age-band breakdown (new):** the reusable audit function cross-tabulates age band by sex within Kajiado North, showing the male/female split holds fairly steady across most age bands, with the 25–44 range contributing the largest numbers for both sexes.
 
 ## Visualizations
 
@@ -57,7 +59,8 @@ Exported summary tables live in `analysis_outputs/`:
 | File | Contents |
 |---|---|
 | `sex_distribution_comparison.csv` | Voter counts and percentage share by sex, for both County and Kajiado North scopes |
-| `age_band_kajiado_north.csv` | Voter counts by age band (`<18` through `65+`) for Kajiado North |
+| `age_band_kajiado_north.csv` | Voter counts by age band (`<18` through `65+`, plus flagged `INVALID` ages) for Kajiado North |
+| `kajiado_north_audit_summary.txt` | Output of the new `audit_voter_register()` function — duplicate ID count, polling-station-level summary size, and confirmation that the sex-by-age-band cross-tab was generated |
 
 **Sex distribution comparison**
 
@@ -78,7 +81,22 @@ Exported summary tables live in `analysis_outputs/`:
 | 35–44 | 46,868 |
 | 45–54 | 29,179 |
 | 55–64 | 14,860 |
-| 65+ | 10,396 |
+| 65+ | 10,375 |
+| INVALID (age > 120) | 21 |
+
+**Sex-by-age-band cross-tab — Kajiado North** *(new, from `audit_voter_register()`)*
+
+| Age band | Female | Male | Total |
+|---|---|---|---|
+| <18 | 0 | 0 | 0 |
+| 18–24 | 690 | 759 | 1,449 |
+| 25–34 | 15,380 | 16,748 | 32,128 |
+| 35–44 | 23,457 | 23,411 | 46,868 |
+| 45–54 | 13,850 | 15,329 | 29,179 |
+| 55–64 | 6,695 | 8,165 | 14,860 |
+| 65+ | 4,931 | 5,444 | 10,375 |
+| INVALID | 13 | 8 | 21 |
+| **Total** | **65,016** | **69,864** | **134,880** |
 
 ## Repository structure
 
@@ -94,7 +112,8 @@ Exported summary tables live in `analysis_outputs/`:
 │       └── sex_share_comparison.png
 └── analysis_outputs/
     ├── sex_distribution_comparison.csv
-    └── age_band_kajiado_north.csv
+    ├── age_band_kajiado_north.csv
+    └── kajiado_north_audit_summary.txt
 ```
 
 ## Tech stack
@@ -103,6 +122,7 @@ Python, pandas, numpy, matplotlib, seaborn (Jupyter notebook environment)
 
 ## Notes / next steps
 
-- Investigate and clean implausible ages (e.g., derived from invalid or placeholder `date_of_birth` values).
+- Investigate and clean implausible ages — the audit function now isolates these cleanly (21 records flagged `INVALID`), so the remaining step is tracing and correcting the underlying `date_of_birth` entries.
 - Deduplicate the 58 records sharing an `id_passport_no`.
-- Potential extensions: polling-station-level granularity, gender-by-age-band cross-tabs, and year-over-year comparison if historical registers become available.
+- ~~Polling-station-level granularity~~ and ~~sex-by-age-band cross-tabs~~ — done via `audit_voter_register()`.
+- Potential extensions: run `audit_voter_register()` against future register updates to track how duplicate counts, invalid-age counts, and the sex/age-band mix change over time; extend polling-station summaries with turnout or historical comparisons if that data becomes available.al extensions: polling-station-level granularity, gender-by-age-band cross-tabs, and year-over-year comparison if historical registers become available.
