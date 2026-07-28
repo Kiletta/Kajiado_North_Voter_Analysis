@@ -1,0 +1,3 @@
+Duplicate ID count: 58
+Polling station summary rows: 34
+Sex-by-age-band cross-tab saved.
